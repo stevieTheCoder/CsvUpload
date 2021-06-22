@@ -2,7 +2,7 @@
 
 namespace CsvUpload.Application.MeterReadings.Commands.CreatingReadingsFromBulkFile
 {
-    internal class MeterReadingDto
+    public class MeterReadingDto
     {
         [Name("AccountId")]
         public int Id { get; set; }
