@@ -1,4 +1,5 @@
 using CsvUpload.Infrastructure;
+using CsvUpload.Infrastructure.Seeding;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +23,7 @@ namespace CsvUpload.Server
                 try
                 {
                     await RunDatabaseMigrations(services);
+                    await SeedDatabaseData(services);
                 }
 
                 catch (Exception ex)
@@ -46,6 +48,12 @@ namespace CsvUpload.Server
         {
             var applicationContext = services.GetRequiredService<ApplicationContext>();
             await applicationContext.Database.MigrateAsync();
+        }
+
+        private static async Task SeedDatabaseData(IServiceProvider services)
+        {
+            var applicationContext = services.GetRequiredService<ApplicationContext>();
+            await SeedDatabase.SeedAccountsAsync(applicationContext);
         }
     }
 }

@@ -9,6 +9,8 @@ namespace CsvUpload.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<MeterReading> builder)
         {
             builder.HasKey(mr => new { mr.Id, mr.ReadingTaken });
+            builder.Property(mr => mr.Id).ValueGeneratedNever();
+            builder.Property(mr => mr.ReadingTaken).ValueGeneratedNever();
         }
     }
 }
