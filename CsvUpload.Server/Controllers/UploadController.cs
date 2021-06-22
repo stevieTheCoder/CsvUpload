@@ -1,5 +1,6 @@
 ﻿using CsvHelper;
 using CsvUpload.Application.MeterReadings.Commands.CreatingReadingsFromBulkFile;
+using CsvUpload.Server.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -16,6 +17,13 @@ namespace CsvUpload.Server.Controllers
     public class UploadController : ApiController
     {
         private readonly ILogger<UploadController> _logger;
+        private readonly ICsvHelper _csvHelper;
+
+        public UploadController(ILogger<UploadController> logger, ICsvHelper csvHelper)
+        {
+            _logger = logger;
+            _csvHelper = csvHelper;
+        }
 
         [HttpPost]
         public async Task<ActionResult<int>> Upload(IFormFile file)
@@ -24,7 +32,8 @@ namespace CsvUpload.Server.Controllers
             {
                 using var reader = new StreamReader(file.OpenReadStream());
                 using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
-                var records = csv.GetRecords<MeterReadingDto>().ToList().AsReadOnly();
+                var records = _csvHelper.GetRecords<MeterReadingDto>(file).ToList().AsReadOnly();
+                return records.Count;
                 return await Mediator.Send(new CreateReadingsFromBulkFileCommand(records));
             }
             catch (Exception ex)

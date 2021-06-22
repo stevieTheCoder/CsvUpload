@@ -1,4 +1,6 @@
+using CsvUpload.Application;
 using CsvUpload.Infrastructure;
+using CsvUpload.Server.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,8 +22,12 @@ namespace CsvUpload.Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add database infrastructure
+            services.AddApplication();
             services.AddInfrastructure(Configuration);
+
+            // Helpers
+            services.AddTransient<ICsvHelper, Helpers.CsvHelper>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
