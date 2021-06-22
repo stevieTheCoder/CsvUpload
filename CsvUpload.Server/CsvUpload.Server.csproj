@@ -12,4 +12,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CsvUpload.Infrastructure\CsvUpload.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
