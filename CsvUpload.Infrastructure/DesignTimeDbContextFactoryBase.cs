@@ -15,7 +15,7 @@ namespace Venture.SharedKernel.Infrastructure
 
         public TContext CreateDbContext(string[] args)
         {
-            var basePath = Directory.GetCurrentDirectory() + string.Format("{0}..{0}Venture.Server", Path.DirectorySeparatorChar);
+            var basePath = Directory.GetCurrentDirectory() + string.Format("{0}..{0}CsvUpload.Server", Path.DirectorySeparatorChar);
             return CreateWithConfiguration(Environment.GetEnvironmentVariable(AspNetCoreEnvironment), basePath);
         }
 

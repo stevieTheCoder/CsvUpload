@@ -31,6 +31,8 @@ namespace CsvUpload.Server
                     logger.LogError(ex, "An error occured while migrating or seeding the database");
                 }
             }
+
+            await host.RunAsync();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

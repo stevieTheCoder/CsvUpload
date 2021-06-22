@@ -1,5 +1,4 @@
 ﻿using CsvUpload.Application.Interfaces;
-using CsvUpload.Domain;
 using CsvUpload.Domain.Accounts;
 using CsvUpload.Domain.MeterReadings;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +12,7 @@ namespace CsvUpload.Infrastructure
         {
         }
 
-        public DbSet<Account> Users { get; set; }
+        public DbSet<Account> Accounts { get; set; }
         public DbSet<MeterReading> MeterReadings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

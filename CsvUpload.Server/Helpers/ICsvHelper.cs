@@ -5,6 +5,6 @@ namespace CsvUpload.Server.Helpers
 {
     public interface ICsvHelper
     {
-        IEnumerable<T> GetRecords<T>(IFormFile file);
+        IReadOnlyCollection<T> GetRecords<T>(IFormFile file);
     }
 }

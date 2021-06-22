@@ -8,7 +8,7 @@ namespace CsvUpload.Application.Interfaces
 {
     public interface IApplicationContext
     {
-        DbSet<Account> Users { get; set; }
+        DbSet<Account> Accounts { get; set; }
         DbSet<MeterReading> MeterReadings { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
