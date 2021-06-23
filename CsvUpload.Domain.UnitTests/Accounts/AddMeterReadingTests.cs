@@ -56,6 +56,18 @@ namespace CsvUpload.Domain.UnitTests.Accounts
             Assert.That(account.MeterReadings, Has.Count.EqualTo(1));
         }
 
-        
+        [Test]
+        // Unclear whether duplicate reading means same date or same value or both
+        // Would need to clarify and adjust tests / logic accordingly
+        public void AddMeterReading_DoesAddToCollection_WhenDifferentDates()
+        {
+            var account = Account.Create("Joe", "Bloggs");
+            account.AddMeterReading("12/05/2021", "12345");
+
+            // Different date should be added
+            account.AddMeterReading("13/05/2021", "12346");
+
+            Assert.That(account.MeterReadings, Has.Count.EqualTo(2));
+        }
     }
 }

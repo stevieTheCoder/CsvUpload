@@ -46,7 +46,7 @@ namespace CsvUpload.Domain.Accounts
                 {
                     var meterReading = MeterReading.Create(Id, reading, value);
 
-                    if (!_meterReadings.Select(mr => mr.Id).Contains(meterReading.Id))
+                    if (!_meterReadings.Select(mr => mr.ReadingTaken).Contains(meterReading.ReadingTaken))
                     {
                         _meterReadings.Add(meterReading);
                     }                    
