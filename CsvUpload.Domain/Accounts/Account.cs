@@ -38,19 +38,16 @@ namespace CsvUpload.Domain.Accounts
         /// </summary>
         /// <param name="readingTaken">Reading taken date as a string</param>
         /// <param name="value">Meter reading value</param>
-        public void AddMeterReading(string readingTakenDate, string value)
+        public void AddMeterReading(DateTime readingTaken, string value)
         {
             try
-            {
-                if (DateTime.TryParse(readingTakenDate, out var reading))
-                {
-                    var meterReading = MeterReading.Create(Id, reading, value);
+            {            
+                var meterReading = MeterReading.Create(Id, readingTaken, value);
 
-                    if (!_meterReadings.Select(mr => mr.ReadingTaken).Contains(meterReading.ReadingTaken))
-                    {
-                        _meterReadings.Add(meterReading);
-                    }                    
-                }
+                if (!_meterReadings.Select(mr => mr.ReadingTaken).Contains(meterReading.ReadingTaken))
+                {
+                    _meterReadings.Add(meterReading);
+                }                                    
             }
             catch(Exception)
             {

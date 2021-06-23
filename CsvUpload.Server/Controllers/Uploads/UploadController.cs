@@ -25,7 +25,7 @@ namespace CsvUpload.Server.Controllers.Uploads
         {
             try
             {
-                var records = _csvHelper.GetRecords<MeterReadingDto>(fileData.file);
+                var records = _csvHelper.GetRecords<MeterReadingDto>(fileData.File);
 
                 return await Mediator.Send(new CreateReadingsFromBulkFileCommand(records));
             }

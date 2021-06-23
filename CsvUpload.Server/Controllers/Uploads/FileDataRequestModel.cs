@@ -8,6 +8,6 @@ namespace CsvUpload.Server.Controllers.Uploads
     {
         [AllowedExtensions(new string[] { ".csv" })]
         [Required(ErrorMessage = "A file is required")]
-        public IFormFile file { get; set; }
+        public IFormFile File { get; set; }
     }
 }
