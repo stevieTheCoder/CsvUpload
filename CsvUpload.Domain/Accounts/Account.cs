@@ -1,9 +1,12 @@
 ﻿using CsvUpload.Domain.MeterReadings;
+using CsvUpload.Domain.Shared;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CsvUpload.Domain.Accounts
 {
-    public class Account
+    public class Account : Entity
     {
         public int Id { get; private set; }
         public string FirstName { get; private set; }
@@ -26,6 +29,33 @@ namespace CsvUpload.Domain.Accounts
         public static Account Create(string firstName, string lastName)
         {
             return new Account(firstName, lastName);
+        }
+
+        /// <summary>
+        /// Add meter reading to account
+        /// Will only add if values are valid dates and value is correct format
+        /// Currently catches business rule validations errors but could issue domain event on failure etc
+        /// </summary>
+        /// <param name="readingTaken">Reading taken date as a string</param>
+        /// <param name="value">Meter reading value</param>
+        public void AddMeterReading(string readingTakenDate, string value)
+        {
+            try
+            {
+                if (DateTime.TryParse(readingTakenDate, out var reading))
+                {
+                    var meterReading = MeterReading.Create(Id, reading, value);
+
+                    if (!_meterReadings.Select(mr => mr.Id).Contains(meterReading.Id))
+                    {
+                        _meterReadings.Add(meterReading);
+                    }                    
+                }
+            }
+            catch(Exception)
+            {
+                return;
+            }
         }
     }
 }

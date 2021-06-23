@@ -10,6 +10,7 @@ namespace CsvUpload.Infrastructure.Configurations
         {
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).ValueGeneratedNever();
+            builder.HasMany(a => a.MeterReadings).WithOne().HasForeignKey(a => a.Id);
         }
     }
 }

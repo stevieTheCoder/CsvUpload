@@ -33,7 +33,7 @@ namespace CsvUpload.Server.Controllers
                 using var reader = new StreamReader(file.OpenReadStream());
                 using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
                 var records = _csvHelper.GetRecords<MeterReadingDto>(file);
-                return records.Count;
+
                 return await Mediator.Send(new CreateReadingsFromBulkFileCommand(records));
             }
             catch (Exception ex)
