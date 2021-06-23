@@ -21,7 +21,7 @@ namespace CsvUpload.Server.Controllers.Uploads
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> Upload([FromForm] FileDataRequestModel fileData)
+        public async Task<ActionResult<BulkUploadResponseDto>> Upload([FromForm] FileDataRequestModel fileData)
         {
             try
             {

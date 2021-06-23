@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CsvUpload.Application.MeterReadings.Commands.CreatingReadingsFromBulkFile
 {
-    public class CreateReadingsFromBulkFileCommand : IRequest<int>
+    public class CreateReadingsFromBulkFileCommand : IRequest<BulkUploadResponseDto>
     {
         public IReadOnlyCollection<MeterReadingDto> MeterReadings { get; }
 
@@ -19,7 +19,7 @@ namespace CsvUpload.Application.MeterReadings.Commands.CreatingReadingsFromBulkF
         }
     }
 
-    internal class CreateReadingsFromBulkFileCommandHandler : IRequestHandler<CreateReadingsFromBulkFileCommand, int>
+    internal class CreateReadingsFromBulkFileCommandHandler : IRequestHandler<CreateReadingsFromBulkFileCommand, BulkUploadResponseDto>
     {
         private readonly IApplicationContext _context;
 
@@ -28,7 +28,7 @@ namespace CsvUpload.Application.MeterReadings.Commands.CreatingReadingsFromBulkF
             _context = context;
         }
 
-        public async Task<int> Handle(CreateReadingsFromBulkFileCommand request, CancellationToken cancellationToken)
+        public async Task<BulkUploadResponseDto> Handle(CreateReadingsFromBulkFileCommand request, CancellationToken cancellationToken)
         {
             // Retrieve accounts which match ids in file 
             var accounts = await _context.Accounts
@@ -48,7 +48,13 @@ namespace CsvUpload.Application.MeterReadings.Commands.CreatingReadingsFromBulkF
                 }
             }
 
-            return await _context.SaveChangesAsync(cancellationToken);
+            var successful = await _context.SaveChangesAsync(cancellationToken);
+
+            return new BulkUploadResponseDto
+            {
+                Successful = successful,
+                Failed = request.MeterReadings.Count - successful
+            };
         }
     }
 }
