@@ -44,15 +44,10 @@ namespace CsvUpload.Infrastructure.Migrations
                     b.Property<DateTime>("ReadingTaken")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("AccountId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Value")
-                        .HasColumnType("int");
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id", "ReadingTaken");
-
-                    b.HasIndex("AccountId");
 
                     b.ToTable("MeterReadings");
                 });
@@ -61,7 +56,9 @@ namespace CsvUpload.Infrastructure.Migrations
                 {
                     b.HasOne("CsvUpload.Domain.Accounts.Account", null)
                         .WithMany("MeterReadings")
-                        .HasForeignKey("AccountId");
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CsvUpload.Domain.Accounts.Account", b =>

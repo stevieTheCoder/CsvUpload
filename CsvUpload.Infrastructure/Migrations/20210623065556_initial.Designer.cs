@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CsvUpload.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210622234128_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210623065556_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,15 +46,10 @@ namespace CsvUpload.Infrastructure.Migrations
                     b.Property<DateTime>("ReadingTaken")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("AccountId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Value")
-                        .HasColumnType("int");
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id", "ReadingTaken");
-
-                    b.HasIndex("AccountId");
 
                     b.ToTable("MeterReadings");
                 });
@@ -63,7 +58,9 @@ namespace CsvUpload.Infrastructure.Migrations
                 {
                     b.HasOne("CsvUpload.Domain.Accounts.Account", null)
                         .WithMany("MeterReadings")
-                        .HasForeignKey("AccountId");
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CsvUpload.Domain.Accounts.Account", b =>

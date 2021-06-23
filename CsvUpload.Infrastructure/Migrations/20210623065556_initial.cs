@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CsvUpload.Infrastructure.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,26 +31,19 @@ namespace CsvUpload.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
                     ReadingTaken = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Value = table.Column<int>(type: "int", nullable: false),
-                    AccountId = table.Column<int>(type: "int", nullable: true)
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MeterReadings", x => new { x.Id, x.ReadingTaken });
                     table.ForeignKey(
-                        name: "FK_MeterReadings_Accounts_AccountId",
-                        column: x => x.AccountId,
+                        name: "FK_MeterReadings_Accounts_Id",
+                        column: x => x.Id,
                         principalSchema: "Application",
                         principalTable: "Accounts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MeterReadings_AccountId",
-                schema: "Application",
-                table: "MeterReadings",
-                column: "AccountId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
