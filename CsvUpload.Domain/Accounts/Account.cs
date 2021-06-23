@@ -33,7 +33,7 @@ namespace CsvUpload.Domain.Accounts
 
         /// <summary>
         /// Add meter reading to account
-        /// Will only add if values are valid dates and value is correct format
+        /// Will only add if values are valid
         /// Currently catches business rule validations errors but could issue domain event on failure etc
         /// </summary>
         /// <param name="readingTaken">Reading taken date as a string</param>

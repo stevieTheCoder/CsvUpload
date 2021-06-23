@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CsvUpload.Application", "Cs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvUpload.Domain.UnitTests", "CsvUpload.Domain.UnitTests\CsvUpload.Domain.UnitTests.csproj", "{2FE3B43E-77D2-4539-8C89-626D93FEBAD2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{80A925A8-EB49-4CA1-B7E8-4EEE7CFDEF06}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C40B84E6-FB60-45FA-8425-20806D953307}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +46,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CF6A0085-C9BF-48D8-8F75-5A3927E90A1F} = {80A925A8-EB49-4CA1-B7E8-4EEE7CFDEF06}
+		{57CCB969-6ADE-43C9-92E8-2C2933731659} = {80A925A8-EB49-4CA1-B7E8-4EEE7CFDEF06}
+		{8EEC7113-54F4-4259-9857-E9A2DE95A008} = {80A925A8-EB49-4CA1-B7E8-4EEE7CFDEF06}
+		{7B2FE47E-BBA8-46D5-A746-11C06A4E641F} = {80A925A8-EB49-4CA1-B7E8-4EEE7CFDEF06}
+		{2FE3B43E-77D2-4539-8C89-626D93FEBAD2} = {C40B84E6-FB60-45FA-8425-20806D953307}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97F42C48-1E1D-4E22-9678-EA9D4CD70352}
