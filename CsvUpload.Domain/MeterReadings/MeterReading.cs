@@ -23,7 +23,7 @@ namespace CsvUpload.Domain.MeterReadings
             Value = value;
         }
 
-        public static MeterReading Create(int id, DateTime readingTaken, string value)
+        internal static MeterReading Create(int id, DateTime readingTaken, string value)
         {     
             return new MeterReading(id, readingTaken, value);
         }
