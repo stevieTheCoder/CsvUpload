@@ -1,16 +1,11 @@
-﻿using CsvHelper;
-using CsvUpload.Application.MeterReadings.Commands.CreatingReadingsFromBulkFile;
+﻿using CsvUpload.Application.MeterReadings.Commands.CreatingReadingsFromBulkFile;
 using CsvUpload.Server.Helpers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace CsvUpload.Server.Controllers
+namespace CsvUpload.Server.Controllers.Uploads
 {
 
     [Route("meter-reading-uploads")]
@@ -26,13 +21,11 @@ namespace CsvUpload.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> Upload(IFormFile file)
+        public async Task<ActionResult<int>> Upload([FromForm] FileDataRequestModel fileData)
         {
             try
             {
-                using var reader = new StreamReader(file.OpenReadStream());
-                using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
-                var records = _csvHelper.GetRecords<MeterReadingDto>(file);
+                var records = _csvHelper.GetRecords<MeterReadingDto>(fileData.file);
 
                 return await Mediator.Send(new CreateReadingsFromBulkFileCommand(records));
             }
